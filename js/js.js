@@ -14,10 +14,10 @@ const displayLatestPost = (data) => {
     const postCard = document.createElement("div");
     postCard.classList = `card w-96 bg-base-100 shadow-xl `;
     postCard.innerHTML = `
-            <figure>
-              <img
+            <figure class="px-6 pt-6 ">
+              <img class=" rounded-xl "
                 src="${post.cover_image}"
-                alt="Shoes"
+                alt="Cover image"
               />
             </figure>
             <div class="mt-3 flex gap-2 pl-4">

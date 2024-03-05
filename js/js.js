@@ -8,17 +8,16 @@ const letsDiscuss = async () => {
   displayLetsDiscuss(data2);
 };
 const displayLetsDiscuss = (data2) => {
-  console.log(data2);
   const showAllDiscussContainer = document.getElementById("discuss-container");
   data2.forEach((post) => {
     const discussCard = document.createElement("div");
     discussCard.classList = `card max-w-4xl bg-[#F3F3F5] shadow-xl`;
     discussCard.innerHTML = `
-    <div class="flex gap-3 p-11">
+    <div class="flex gap-3 p-11 max-w-2xl">
                     <div>
                       <img class="w-20 h-20 rounded-lg" src="${post.image}" alt="" />
                     </div>
-                    <div>
+                    <div class="w-full">
                       <div class="flex gap-3">
                         <h3 class="font-semibold">#${post.category}</h3>
                         <h3 class="font-semibold">Author:${post.author.name}</h3>
@@ -31,7 +30,7 @@ const displayLetsDiscuss = (data2) => {
                         </p>
                       </div>
                       <hr />
-                      <div class="flex justify-between mt-4">
+                      <div class="flex justify-between mt-4 w-full">
                         <div class="flex gap-2">
                           <div class="flex gap-1">
                             <img
@@ -49,7 +48,7 @@ const displayLetsDiscuss = (data2) => {
                             <p>${post.posted_time} min</p>
                           </div>
                         </div>
-                        <div>
+                        <div onclick="showDataInCard('${post.title}', ${post.view_count})" class="cursor-pointer">
                           <img src="images/Group 40106.png" alt="" />
                         </div>
                       </div>
@@ -58,6 +57,28 @@ const displayLetsDiscuss = (data2) => {
     `;
     showAllDiscussContainer.appendChild(discussCard);
   });
+};
+let count = 0;
+const showDataInCard = (title, view_count) => {
+  count = count + 1;
+  document.getElementById("count-post").innerText = count;
+  console.log(count);
+  const cardData = document.getElementById("show-data-card");
+  const dataDiv = document.createElement("div");
+  dataDiv.classList = `flex w-fit justify-between p-5 bg-white mb-3 rounded-xl mx-auto gap-2`;
+  dataDiv.innerHTML = `
+<h5 class="font-bold w-56">${title}</h5>
+<div class="inline-flex ">
+ <img class=" w-7 h-7" src="images/Group 16.png" alt="" />
+ <p>${view_count}</P>
+</div>
+`;
+  cardData.appendChild(dataDiv);
+  // dataTitle.textContent = title;
+  // cardData.appendChild(dataTitle);
+  // const dataView = document.createElement("p");
+  // dataView.textContent = count;
+  // cardData.appendChild(dataView);
 };
 letsDiscuss();
 // Latest Post

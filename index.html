@@ -94,13 +94,15 @@
               class="input input-bordered flex items-center gap-2 rounded-full"
             >
               <input
+                id="search-field"
                 type="text"
                 class="grow"
                 placeholder="Search here anything"
               />
               <div class="">
                 <button
-                  class="btn bg-blue-600 rounded-l-full rounded-r-full w-36 p-2 text-white"
+                  onclick="handleSearch()"
+                  class="btn bg-blue-600 rounded-l-full rounded-r-full w-36 p-2 text-white cursor-pointer"
                 >
                   Search
                 </button>
@@ -113,8 +115,13 @@
     <main>
       <!-- Let's Discuss  section -->
       <section>
+        <!-- loading spinner -->
+        <div id="loading-spinner" class="text-center m-7 hidden">
+          <span class="loading loading-spinner text-primary"></span>
+        </div>
+        <!-- loading spinner end -->
         <div class="flex justify-center">
-          <div class="mt-12 text-center">
+          <div class="mt-6 text-center">
             <h1 class="font-extrabold text-5xl">Let’s Discuss</h1>
             <p class="font-medium max-w-2xl mt-6">
               Let's discuss and delve into the depths of knowledge, ignite
@@ -127,54 +134,7 @@
         <section>
           <div class="lg:flex gap-10 justify-center mt-7">
             <!-- card start -->
-            <div id="discuss-container" class="grid grid-cols-1 gap-6">
-              <!-- <div class="card max-w-4xl bg-[#F3F3F5] shadow-xl">
-                  <div class="flex gap-3 p-11">
-                    <div>
-                      <img src="images/Ellipse 1.png" alt="" />
-                    </div>
-                    <div>
-                      <div class="flex gap-3">
-                        <h3 class="font-semibold">#Music</h3>
-                        <h3 class="font-semibold">Author: Awlad Hossain</h3>
-                      </div>
-                      <div class="mt-3 mb-3">
-                        <h1 class="font-bold">
-                          10 Kids Unaware of Their Halloween Costume
-                        </h1>
-                        <p class="mt-3">
-                          It’s one thing to subject yourself to ha Halloween
-                          costume mishap because,<br />
-                          hey that’s your prerogative
-                        </p>
-                      </div>
-                      <hr />
-                      <div class="flex justify-between mt-4">
-                        <div class="flex gap-2">
-                          <div class="flex gap-1">
-                            <img
-                              src="images/tabler-icon-message-2.png"
-                              alt=""
-                            />
-                            <p>540</p>
-                          </div>
-                          <div class="flex gap-1">
-                            <img src="images/Group 16.png" alt="" />
-                            <p>100</p>
-                          </div>
-                          <div class="flex gap-1">
-                            <img src="images/Group 18.png" alt="" />
-                            <p>5 Min</p>
-                          </div>
-                        </div>
-                        <div>
-                          <img src="images/Group 40106.png" alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-            </div>
+            <div id="discuss-container" class="grid grid-cols-1 gap-6"></div>
             <!-- card end -->
             <div>
               <div class="card w-96 bg-[#12132D0D] shadow-xl">

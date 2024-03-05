@@ -1,6 +1,11 @@
-const letsDiscuss = async () => {
+// discuss section code
+const letsDiscuss = async (searchText) => {
   const res = await fetch(
-    "https://openapi.programming-hero.com/api/retro-forum/posts"
+    `${
+      searchText
+        ? `https://openapi.programming-hero.com/api/retro-forum/posts?category=${searchText}`
+        : `https://openapi.programming-hero.com/api/retro-forum/posts`
+    }`
   );
   const data = await res.json();
   const data2 = data.posts;
@@ -9,18 +14,29 @@ const letsDiscuss = async () => {
 };
 const displayLetsDiscuss = (data2) => {
   const showAllDiscussContainer = document.getElementById("discuss-container");
+  // clear post data
+  showAllDiscussContainer.textContent = "";
   data2.forEach((post) => {
     const discussCard = document.createElement("div");
     discussCard.classList = `card max-w-4xl bg-[#F3F3F5] shadow-xl`;
     discussCard.innerHTML = `
     <div class="flex gap-3 p-11 max-w-2xl">
-                    <div>
-                      <img class="w-20 h-20 rounded-lg" src="${post.image}" alt="" />
+                    <div class="relative">
+                      <img class="w-20 h-20 rounded-lg" src="${
+                        post.image
+                      }" alt="" />
+                      <span class="${
+                        post.isActive
+                          ? "absolute -right-1 -top-1 h-4 w-4 bg-green-700 rounded-full"
+                          : "absolute -right-1 -top-1 bg-red-700 h-4 w-4 rounded-full"
+                      }"></span>
                     </div>
                     <div class="w-full">
                       <div class="flex gap-3">
                         <h3 class="font-semibold">#${post.category}</h3>
-                        <h3 class="font-semibold">Author:${post.author.name}</h3>
+                        <h3 class="font-semibold">Author:${
+                          post.author.name
+                        }</h3>
                       </div>
                       <div class="mt-3 mb-3">
                         <h1 class="font-bold">
@@ -48,7 +64,9 @@ const displayLetsDiscuss = (data2) => {
                             <p>${post.posted_time} min</p>
                           </div>
                         </div>
-                        <div onclick="showDataInCard('${post.title}', ${post.view_count})" class="cursor-pointer">
+                        <div onclick="showDataInCard('${post.title}', ${
+      post.view_count
+    })" class="cursor-pointer">
                           <img src="images/Group 40106.png" alt="" />
                         </div>
                       </div>
@@ -57,6 +75,8 @@ const displayLetsDiscuss = (data2) => {
     `;
     showAllDiscussContainer.appendChild(discussCard);
   });
+  // hide loading spinner
+  toggleLoadingSpinner(false);
 };
 let count = 0;
 const showDataInCard = (title, view_count) => {
@@ -74,13 +94,28 @@ const showDataInCard = (title, view_count) => {
 </div>
 `;
   cardData.appendChild(dataDiv);
-  // dataTitle.textContent = title;
-  // cardData.appendChild(dataTitle);
-  // const dataView = document.createElement("p");
-  // dataView.textContent = count;
-  // cardData.appendChild(dataView);
 };
+// Search function
+const handleSearch = () => {
+  toggleLoadingSpinner(true);
+  const searchField = document.getElementById("search-field");
+  const searchText = searchField.value;
+  console.log(searchText);
+  letsDiscuss(searchText);
+};
+
+// Loading spinner
+const toggleLoadingSpinner = (isLoading) => {
+  const loadingSpinner = document.getElementById("loading-spinner");
+  if (isLoading) {
+    loadingSpinner.classList.remove("hidden");
+  } else {
+    loadingSpinner.classList.add("hidden");
+  }
+};
+
 letsDiscuss();
+
 // Latest Post
 const latestPost = async () => {
   const res = await fetch(
@@ -128,4 +163,5 @@ const displayLatestPost = (data) => {
     showAllContainer.appendChild(postCard);
   });
 };
+
 latestPost();
